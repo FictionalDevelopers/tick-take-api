@@ -1,0 +1,28 @@
+{
+  "name": "template-express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FictionalDevelopers/template-express.git",
+  "author": "dmitry.honcharuk <dmitry.honcharuk@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack --config webpack.dev.config.js",
+    "build": "webpack --config webpack.prod.config.js"
+  },
+  "dependencies": {
+    "dotenv-extended": "^2.7.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "nodemon-webpack-plugin": "^4.2.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
