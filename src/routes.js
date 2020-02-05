@@ -1,14 +1,9 @@
 import { Router } from 'express';
 
+import {AuthRouter} from "./components/auth";
+
 const router = Router();
 
-router.get('/', (req, res) => {
-  console.log('YRAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-  return res.json({ success: true });
-});
-
-router.post('/', (req, res) => {
-  return res.json(req.body);
-});
+router.use('/auth', AuthRouter);
 
 export default router;
