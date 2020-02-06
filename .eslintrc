@@ -1,0 +1,16 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["standard", "prettier"],
+  "extends": ["standard", "plugin:prettier/recommended", "prettier"],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "eol-last": ["error", "always"],
+    "import/prefer-default-export": 0,
+    "no-shadow": 0,
+    "quotes": 2,
+    "no-console": 2
+  }
+}
