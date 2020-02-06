@@ -1,5 +1,5 @@
-import * as UserService from './service';
+import * as service from './service';
 
-export { default as UserModel } from './model';
+export { default as model } from './model';
 
-export { UserService };
+export { service };

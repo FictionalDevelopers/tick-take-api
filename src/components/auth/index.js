@@ -1,5 +1,5 @@
-import * as AuthService from './service';
+import * as service from './service';
 
-export { default as AuthRouter } from './router';
+export { default as router } from './router';
 
-export { AuthService };
+export { service };
