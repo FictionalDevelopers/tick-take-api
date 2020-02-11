@@ -7,14 +7,14 @@ export const create = async (req, res, next) => {
   const result = validationResult(req).formatWith(errorFormatter);
 
   if (!result.isEmpty()) {
-    return res.status(422).json(result.mapped());
+    return res.status(400).json(result.mapped());
   }
 
   const { email, password, name } = req.body;
 
   if (await UserService.isEmailTaken(email)) {
     return res.status(401).json({
-      error: 'Email already exists',
+      email: 'Email already exists',
     });
   }
 
@@ -37,7 +37,7 @@ export const login = async (req, res, next) => {
 
     if (!user) {
       return res.status(401).json({
-        error: 'Invalid email',
+        email: 'Invalid email',
       });
     }
 
@@ -49,7 +49,7 @@ export const login = async (req, res, next) => {
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        error: 'Invalid password',
+        password: 'Invalid password',
       });
     }
 
