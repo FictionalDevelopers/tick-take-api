@@ -1,12 +1,20 @@
+import { validationResult } from 'express-validator';
 import { service as UserService } from '../users';
 import { createAccessToken } from './service';
+import errorFormatter from '../../utils/errorFormatter';
 
 export const create = async (req, res, next) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    const data = errorFormatter(result.errors);
+    return res.status(422).json(data);
+  }
+
   const { email, password, name } = req.body;
 
   if (await UserService.isEmailTaken(email)) {
     return res.status(401).json({
-      msg: 'Email already exists',
+      error: 'Email already exists',
     });
   }
 
@@ -22,13 +30,14 @@ export const create = async (req, res, next) => {
 };
 
 export const login = async (req, res, next) => {
+  const { email, password } = req.body;
+
   try {
-    const { email, password } = req.body;
     const user = await UserService.getUserByEmail(email);
 
     if (!user) {
       return res.status(401).json({
-        msg: 'Invalid email',
+        error: 'Invalid email',
       });
     }
 
@@ -40,7 +49,7 @@ export const login = async (req, res, next) => {
 
     if (!isPasswordValid) {
       return res.status(401).json({
-        msg: 'Invalid password',
+        error: 'Invalid password',
       });
     }
 
