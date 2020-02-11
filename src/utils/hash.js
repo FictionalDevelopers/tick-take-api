@@ -2,9 +2,9 @@ import { createHmac, randomBytes } from 'crypto';
 
 export const genRandomString = length => randomBytes(length).toString('hex');
 
-export const getHmac = (password, salt) => {
-  const hash = createHmac('sha512', salt);
-  hash.update(password);
+export const getHmac = (string, salt) => {
+  const hmac = createHmac('sha512', salt);
+  hmac.update(string);
 
-  return hash.digest('hex');
+  return hmac.digest('hex');
 };
