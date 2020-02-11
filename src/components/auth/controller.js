@@ -4,10 +4,10 @@ import { createAccessToken } from './service';
 import errorFormatter from '../../utils/errorFormatter';
 
 export const create = async (req, res, next) => {
-  const result = validationResult(req);
+  const result = validationResult(req).formatWith(errorFormatter);
+
   if (!result.isEmpty()) {
-    const data = errorFormatter(result.errors);
-    return res.status(422).json(data);
+    return res.status(422).json(result.mapped());
   }
 
   const { email, password, name } = req.body;
