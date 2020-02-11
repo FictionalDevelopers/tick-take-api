@@ -1,10 +1,12 @@
 import express, { json } from 'express';
+import helmet from 'helmet';
 import { PORT } from './config/env';
 import routes from './routes';
 import createDbConnection from './db';
 
 const app = express();
 
+app.use(helmet());
 app.use(json());
 app.use('/api', routes);
 
