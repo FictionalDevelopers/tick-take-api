@@ -17,3 +17,11 @@ export const createUser = ({ email, password, name }) => {
     passwordSalt: salt,
   });
 };
+
+export const getUserByEmail = email => UserModel.findOne({ email });
+
+export const isPasswordSame = (pass, encryptedPass, salt) => {
+  const passwordHash = getHmac(pass, salt + DB_SALT);
+
+  return passwordHash === encryptedPass;
+};
