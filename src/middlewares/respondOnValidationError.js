@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator';
-import errorFormatter from '../utils/errorFormatter';
+
+import errorFormatter from '@app/utils/errorFormatter';
 
 function respondOnValidationError(req, res, next) {
   const errors = validationResult(req).formatWith(errorFormatter);

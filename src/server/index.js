@@ -1,8 +1,10 @@
 import express, { json } from 'express';
 import helmet from 'helmet';
-import { PORT } from './config/env';
+
+import createDbConnection from '@app/config/db';
+import { PORT } from '@app/config/env';
+
 import routes from './routes';
-import createDbConnection from './db';
 
 const app = express();
 

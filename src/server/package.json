@@ -1,0 +1,14 @@
+{
+  "name": "@app/server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@app/components": "1.0.0",
+    "@app/config": "1.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1"
+  }
+}

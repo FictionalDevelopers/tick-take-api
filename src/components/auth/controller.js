@@ -1,4 +1,5 @@
-import { service as UserService } from '../users';
+import { service as UserService } from '@app/components/users';
+
 import { createAccessToken } from './service';
 
 export const create = async (req, res, next) => {
