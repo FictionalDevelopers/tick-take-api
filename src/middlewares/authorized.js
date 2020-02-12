@@ -6,7 +6,7 @@ function authorized(req, res, next) {
 
   if (!token) {
     return res.status(401).json({
-      error: 'Token not provide',
+      error: 'Token is not provide',
     });
   }
 
@@ -21,6 +21,8 @@ function authorized(req, res, next) {
         error: 'Invalid token',
       });
     }
+
+    return next(e);
   }
 }
 

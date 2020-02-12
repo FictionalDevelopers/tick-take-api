@@ -1,4 +1,13 @@
 import { body } from 'express-validator';
+import respondOnValidationError from '../../middlewares/respondOnValidationError';
+
+const validateName = () =>
+  body('name')
+    .exists({
+      checkNull: true,
+      checkFalsy: true,
+    })
+    .withMessage('Name is required field');
 
 const validatePassword = () =>
   body('password')
@@ -40,9 +49,11 @@ const validateEmail = () =>
     .withMessage('Invalid email');
 
 export const validateRegistration = () => [
+  validateName(),
   validatePassword(),
   validatePasswordConfirm(),
   validateEmail(),
+  respondOnValidationError,
 ];
 
 export const validateLogin = () => [
@@ -53,4 +64,5 @@ export const validateLogin = () => [
     })
     .withMessage('Password is required field'),
   validateEmail(),
+  respondOnValidationError,
 ];

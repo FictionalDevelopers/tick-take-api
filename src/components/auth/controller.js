@@ -1,15 +1,7 @@
-import { validationResult } from 'express-validator';
 import { service as UserService } from '../users';
 import { createAccessToken } from './service';
-import errorFormatter from '../../utils/errorFormatter';
 
 export const create = async (req, res, next) => {
-  const result = validationResult(req).formatWith(errorFormatter);
-
-  if (!result.isEmpty()) {
-    return res.status(400).json(result.mapped());
-  }
-
   const { email, password, name } = req.body;
 
   if (await UserService.isEmailTaken(email)) {
