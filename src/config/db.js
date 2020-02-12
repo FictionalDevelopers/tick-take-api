@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { DB_URL, DB_NAME } from '../config/env';
+import { DB_URL, DB_NAME } from './env';
 
 export default () =>
   mongoose

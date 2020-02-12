@@ -1,6 +1,7 @@
-import { genRandomString, getHmac } from '../../utils/hash';
+import { DB_SALT } from '@app/config/env';
+import { genRandomString, getHmac } from '@app/utils/hash';
+
 import UserModel from './model';
-import { DB_SALT } from '../../config/env';
 
 export const isEmailTaken = async email => {
   const user = await UserModel.findOne({ email });

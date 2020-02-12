@@ -1,4 +1,5 @@
 import { JsonWebTokenError } from 'jsonwebtoken';
+
 import { service as AuthService } from '../components/auth';
 
 function authorized(req, res, next) {

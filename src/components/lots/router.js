@@ -1,6 +1,7 @@
 import { Router } from 'express';
+import authorized from '@app/middlewares/authorized';
+
 import * as LotController from './controller';
-import authorized from '../../middlewares/authorized';
 import { validateLot } from './validation';
 
 const router = Router();

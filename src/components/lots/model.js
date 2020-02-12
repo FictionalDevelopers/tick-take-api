@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-import { model as UserModel } from '../users';
+import { model as UserModel } from '@app/components/users';
 
 const LotSchema = new Schema(
   {

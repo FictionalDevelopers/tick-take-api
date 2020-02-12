@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
-import respondOnValidationError from '../../middlewares/respondOnValidationError';
+
+import respondOnValidationError from '@app/middlewares/respondOnValidationError';
 
 const validateLotName = () =>
   body('name')

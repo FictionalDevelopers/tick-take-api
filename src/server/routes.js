@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import { router as AuthRouter } from './components/auth';
-import { router as LotRouter } from './components/lots';
+import { router as AuthRouter } from '../components/auth';
+import { router as LotRouter } from '../components/lots';
 
 const router = Router();
 

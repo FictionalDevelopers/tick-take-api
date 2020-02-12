@@ -5,10 +5,18 @@
   "repository": "https://github.com/FictionalDevelopers/template-express.git",
   "author": "dmitry.honcharuk <dmitry.honcharuk@gmail.com>",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "start": "webpack --config webpack.dev.config.js",
     "build": "webpack --config webpack.prod.config.js"
   },
+  "workspaces": [
+    "src/server",
+    "src/components",
+    "src/middlewares",
+    "src/config",
+    "src/utils"
+  ],
   "lint-staged": {
     "*.js": [
       "eslint"
@@ -19,14 +27,7 @@
       "pre-commit": "lint-staged"
     }
   },
-  "dependencies": {
-    "dotenv-extended": "^2.7.1",
-    "express": "^4.17.1",
-    "express-validator": "^6.4.0",
-    "helmet": "^3.21.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.11"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/polyfill": "^7.8.3",

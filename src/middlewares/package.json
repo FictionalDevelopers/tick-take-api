@@ -1,0 +1,11 @@
+{
+  "name": "@app/middlewares",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@app/utils": "1.0.0",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
