@@ -8,10 +8,18 @@ const validatePassword = () =>
     })
     .withMessage('Password is required field')
     .isLength({ min: 3 })
-    .withMessage('Your password must be at least 3 characters')
-    .custom((password, { req }) => {
+    .withMessage('Your password must be at least 3 characters');
+
+const validatePasswordConfirm = () =>
+  body('passwordConfirm')
+    .exists({
+      checkNull: true,
+      checkFalsy: true,
+    })
+    .withMessage('Password confirm is required field')
+    .custom((passwordConfirm, { req }) => {
       const {
-        body: { passwordConfirm },
+        body: { password },
       } = req;
 
       if (password !== passwordConfirm) {
@@ -31,7 +39,12 @@ const validateEmail = () =>
     .isEmail()
     .withMessage('Invalid email');
 
-export const validateRegistration = () => [validatePassword(), validateEmail()];
+export const validateRegistration = () => [
+  validatePassword(),
+  validatePasswordConfirm(),
+  validateEmail(),
+];
+
 export const validateLogin = () => [
   body('password')
     .exists({
