@@ -8,7 +8,18 @@ const validatePassword = () =>
     })
     .withMessage('Password is required field')
     .isLength({ min: 3 })
-    .withMessage('Your password must be at least 3 characters');
+    .withMessage('Your password must be at least 3 characters')
+    .custom((password, { req }) => {
+      const {
+        body: { passwordConfirm },
+      } = req;
+
+      if (password !== passwordConfirm) {
+        throw new Error('Passwords do not match');
+      }
+
+      return true;
+    });
 
 const validateEmail = () =>
   body('email')
@@ -21,3 +32,12 @@ const validateEmail = () =>
     .withMessage('Invalid email');
 
 export const validateRegistration = () => [validatePassword(), validateEmail()];
+export const validateLogin = () => [
+  body('password')
+    .exists({
+      checkNull: true,
+      checkFalsy: true,
+    })
+    .withMessage('Password is required field'),
+  validateEmail(),
+];
