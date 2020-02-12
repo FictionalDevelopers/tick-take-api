@@ -4,6 +4,7 @@ import { DB_SALT } from '../../config/env';
 
 export const isEmailTaken = async email => {
   const user = await UserModel.findOne({ email });
+
   return user !== null;
 };
 

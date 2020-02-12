@@ -1,10 +1,19 @@
-import { createLot } from './service';
+import { createLot, isLotExist } from './service';
 
 export const create = async (req, res, next) => {
-  const { name, description } = req.body;
-  const creator = '5e43bd6ce439d63bfd9e0f96';
+  const {
+    user: { id },
+    body: { name, description },
+  } = req;
+
+  if (await isLotExist(name)) {
+    return res.status(400).json({
+      lot: 'Lot already exists',
+    });
+  }
+
   try {
-    const lot = await createLot({ name, description, creator });
+    const lot = await createLot({ name, description, creator: id });
 
     return res.json(lot);
   } catch (e) {
