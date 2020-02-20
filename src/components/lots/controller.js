@@ -20,18 +20,20 @@ export const getLots = async (req, res, next) => {
   const page = +req.query.page || 1;
   const limit = +req.query.limit || 10;
 
-  if (req.query.id) {
-    params.creator = req.query.id;
+  if (req.query.user) {
+    params.creator = req.query.user;
   }
 
   try {
-    const lots = await loadLots({ params, limit, page });
-    const lotsCount = await getLotsCount();
+    const lots = await loadLots(params)
+      .skip(limit * page - limit)
+      .limit(limit);
+    const lotsCount = await getLotsCount(params);
 
     const data = {
       items: lots,
       currentPage: page,
-      pages: Math.ceil(lotsCount / page),
+      pages: Math.ceil(lotsCount / limit),
       count: lotsCount,
     };
 
