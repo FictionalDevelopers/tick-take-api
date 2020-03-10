@@ -1,12 +1,19 @@
 import express, { json } from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 
 import createDbConnection from '@app/config/db';
-import { PORT } from '@app/config/env';
+import { PORT, CLIENT_ORIGIN } from '@app/config/env';
 
 import routes from './routes';
 
 const app = express();
+
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN,
+  }),
+);
 
 app.use(helmet());
 app.use(json());
