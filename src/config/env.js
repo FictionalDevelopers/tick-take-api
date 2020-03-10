@@ -6,6 +6,7 @@ export const {
   DB_URL,
   DB_SALT,
   ACCESS_TOKEN_SECRET,
+  CLIENT_ORIGIN,
 } = dotEnvExtended.load({
   errorOnMissing: true,
   includeProcessEnv: true,
