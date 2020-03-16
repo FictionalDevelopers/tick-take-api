@@ -24,6 +24,7 @@ const AuctionSchema = new Schema({
   },
   status: {
     type: String,
+    enum: ['pending', 'live', 'ended', 'cancelled'],
     default: 'pending',
   },
 });

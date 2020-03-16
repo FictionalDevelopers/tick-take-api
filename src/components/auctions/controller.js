@@ -1,4 +1,5 @@
-import { createAuction, isLotTaken } from './service';
+import { createAuction } from './service';
+import { isLotTaken } from '../lots/service';
 
 export const create = async (req, res, next) => {
   const {
