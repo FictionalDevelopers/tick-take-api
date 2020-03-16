@@ -18,6 +18,14 @@ const validatePrice = () =>
     })
     .withMessage('Price is required field');
 
+const validateLot = () =>
+  body('lotId')
+    .exists({
+      checkNull: true,
+      checkFalsy: true,
+    })
+    .withMessage('Lot is required field');
+
 const validateTime = () =>
   body('endTime')
     .exists({
@@ -30,5 +38,6 @@ export const validateAuction = () => [
   validateStep(),
   validatePrice(),
   validateTime(),
+  validateLot(),
   respondOnValidationError,
 ];
