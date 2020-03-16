@@ -2,14 +2,7 @@ import { createAuction, isLotTaken } from './service';
 
 export const create = async (req, res, next) => {
   const {
-    body: {
-      endTime,
-      minimumAcceptablePrice,
-      minimumStep,
-      startTime,
-      lotId,
-      status,
-    },
+    body: { minimumAcceptablePrice, minimumStep, lotId },
   } = req;
 
   try {
@@ -20,12 +13,9 @@ export const create = async (req, res, next) => {
     }
 
     const auction = await createAuction({
-      startTime,
-      endTime,
       minimumAcceptablePrice,
       minimumStep,
       lot: lotId,
-      status,
     });
 
     return res.json(auction);
