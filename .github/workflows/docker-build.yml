@@ -5,30 +5,33 @@ on:
     branches:
       - master
 
+env:
+  PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+  RUN_REGION: europe-west1
+  SERVICE_NAME: tick-take-api
+
 jobs:
   docker-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Login into Dockerhub
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login --username=${{ secrets.DOCKERHUB_LOGIN }} --password-stdin
-      - name: Pull latest Docker image
-        run: docker pull fictionaldev/tick-take-api:latest
-      - name: Build the Docker image
-        run: docker build --cache-from fictionaldev/tick-take-api:latest -t fictionaldev/tick-take-api .
-      - name: Push docker image
-        run: docker push fictionaldev/tick-take-api
-      - name: Connect to server and update a container
-        uses: appleboy/ssh-action@master
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            echo "${{ secrets.ENV }}" > .env.example
-            docker pull fictionaldev/tick-take-api
-            docker container stop tick-take-api || true
-            docker container rm tick-take-api || true
-            docker run --env-file=.env.example --name tick-take-api -d -p 80:5001 fictionaldev/tick-take-api
-            rm .env.example
+          service_account_email: ${{ secrets.GCLOUD_SERVICE_ACCOUNT_EMAIL }}
+          service_account_key: ${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY}}
+      - name: gcloud Set up
+        run: |
+          gcloud config set project $PROJECT_ID
+      # Build and push image to Google Container Registry
+      - name: Build
+        run: |
+          gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME
+      # Deploy image to Cloud Run
+      - name: Deploy
+        run: |
+          gcloud run deploy $SERVICE_NAME \
+            --region $RUN_REGION \
+            --image gcr.io/$PROJECT_ID/$SERVICE_NAME \
+            --platform managed \
+            --set-env-vars "ACCESS_TOKEN_SECRET=${{ secrets.ENV_ACCESS_TOKEN_SECRET }},CLIENT_ORIGIN=${{ secrets.ENV_CLIENT_ORIGIN }},DB_NAME=${{ secrets.ENV_DB_NAME }},DB_URL=${{ secrets.ENV_DB_URL }},DB_SALT=${{ secrets.ENV_DB_SALT }}"
