@@ -1,5 +1,6 @@
 import { createAuction } from './service';
-import { isLotTaken } from '../lots/service';
+import { isLotTaken, updateLot } from '../lots/service';
+import LOT_STATUSES from '../../constants/lotStatuses';
 
 export const create = async (req, res, next) => {
   const {
@@ -13,11 +14,14 @@ export const create = async (req, res, next) => {
       });
     }
 
-    const auction = await createAuction({
-      minimumAcceptablePrice,
-      minimumStep,
-      lot: lotId,
-    });
+    const [auction] = await Promise.all([
+      createAuction({
+        minimumAcceptablePrice,
+        minimumStep,
+        lot: lotId,
+      }),
+      updateLot(lotId, { status: LOT_STATUSES.IN_SALE }),
+    ]);
 
     return res.json(auction);
   } catch (e) {

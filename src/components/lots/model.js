@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-
 import { model as UserModel } from '@app/components/users';
+import LOT_STATUSES from '../../constants/lotStatuses';
 
 const LotSchema = new Schema(
   {
@@ -16,6 +16,11 @@ const LotSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: UserModel,
       required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(LOT_STATUSES),
+      default: LOT_STATUSES.AVAILABLE,
     },
   },
   {
