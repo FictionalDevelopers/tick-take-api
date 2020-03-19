@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { model as LotModel } from '@app/components/lots';
-import auctionStatuses from '../../enums/auctionStatuses';
+import AUCTION_STATUSES from '../../constants/auctionStatuses';
 
 const AuctionSchema = new Schema({
   minimumAcceptablePrice: {
@@ -24,8 +24,8 @@ const AuctionSchema = new Schema({
   },
   status: {
     type: String,
-    enum: Object.values(auctionStatuses),
-    default: auctionStatuses.PENDING,
+    enum: Object.values(AUCTION_STATUSES),
+    default: AUCTION_STATUSES.PENDING,
   },
 });
 
