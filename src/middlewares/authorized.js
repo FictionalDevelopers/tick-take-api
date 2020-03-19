@@ -3,13 +3,15 @@ import { JsonWebTokenError } from 'jsonwebtoken';
 import { service as AuthService } from '../components/auth';
 
 function authorized(req, res, next) {
-  const token = req.get('Authorization');
+  const authHeader = req.get('Authorization');
 
-  if (!token) {
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({
       error: 'Token is not provided',
     });
   }
+
+  const token = authHeader.replace('Bearer ', '');
 
   try {
     const { user } = AuthService.verifyAccessToken(token);
