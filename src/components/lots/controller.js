@@ -24,6 +24,10 @@ export const getLots = async (req, res, next) => {
     params.creator = req.query.user;
   }
 
+  if (req.query.status) {
+    params.status = req.query.status;
+  }
+
   try {
     const lots = await loadLots(params)
       .skip(limit * page - limit)

@@ -1,5 +1,6 @@
 import { createAuction } from './service';
-import { isLotTaken } from '../lots/service';
+import { isLotTaken, updateLot } from '../lots/service';
+import lotStatuses from '../../enums/lotStatuses';
 
 export const create = async (req, res, next) => {
   const {
@@ -18,6 +19,8 @@ export const create = async (req, res, next) => {
       minimumStep,
       lot: lotId,
     });
+
+    await updateLot(lotId, { status: lotStatuses.IN_SALE });
 
     return res.json(auction);
   } catch (e) {

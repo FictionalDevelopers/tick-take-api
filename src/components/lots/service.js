@@ -8,6 +8,8 @@ export const loadLots = params => LotModel.find(params);
 
 export const loadLot = id => LotModel.find({ _id: id });
 
+export const updateLot = (id, data) => LotModel.updateOne({ _id: id }, data);
+
 export const getLotsCount = params => LotModel.countDocuments(params);
 
 export const isLotTaken = async lotId => {
