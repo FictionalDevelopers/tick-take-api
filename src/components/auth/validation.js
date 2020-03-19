@@ -8,7 +8,9 @@ const validateName = () =>
       checkNull: true,
       checkFalsy: true,
     })
-    .custom(v => v.trim())
+    .withMessage('Name is required field')
+    .trim()
+    .notEmpty()
     .withMessage('Name is required field');
 
 const validatePassword = () =>
