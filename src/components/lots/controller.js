@@ -7,7 +7,8 @@ export const create = async (req, res, next) => {
   } = req;
 
   try {
-    const lot = await createLot({ name, description, creator: id });
+    const data = { name, description, creator: id };
+    const lot = await createLot(data);
 
     return res.json(lot);
   } catch (e) {
@@ -17,8 +18,9 @@ export const create = async (req, res, next) => {
 
 export const getLots = async (req, res, next) => {
   const params = {};
-  const page = +req.query.page || 1;
-  const limit = +req.query.limit || 10;
+  const {
+    query: { page, limit },
+  } = req;
 
   if (req.query.user) {
     params.creator = req.query.user;

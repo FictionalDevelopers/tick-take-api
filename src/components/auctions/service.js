@@ -2,8 +2,10 @@ import AuctionModel from './model';
 
 export const createAuction = data => AuctionModel.create(data);
 
-export const loadAuction = id => AuctionModel.find({ _id: id });
+export const loadAuction = (id, field) =>
+  AuctionModel.findOne({ _id: id }).populate(field);
 
 export const getAuctionsCount = params => AuctionModel.countDocuments(params);
 
-export const loadAuctions = params => AuctionModel.find(params);
+export const loadAuctions = (params, field) =>
+  AuctionModel.find(params).populate(field);
