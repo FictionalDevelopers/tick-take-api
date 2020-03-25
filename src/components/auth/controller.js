@@ -13,10 +13,13 @@ export const create = async (req, res, next) => {
 
   try {
     const user = await UserService.createUser({ email, password, name });
-    const data = { user: { email, name, id: user._id } };
-    const accessToken = createAccessToken(data);
+    const userPayload = { email, name, id: user._id };
+    const token = createAccessToken({ user: userPayload });
 
-    return res.json(accessToken);
+    return res.json({
+      user: userPayload,
+      token,
+    });
   } catch (e) {
     return next(e);
   }
@@ -46,10 +49,13 @@ export const login = async (req, res, next) => {
       });
     }
 
-    const data = { user: { email, name: user.name, id: user._id } };
-    const accessToken = createAccessToken(data);
+    const userPayload = { email, name: user.name, id: user._id };
+    const token = createAccessToken({ user: userPayload });
 
-    return res.json(accessToken);
+    return res.json({
+      token,
+      user: userPayload,
+    });
   } catch (e) {
     return next(e);
   }
