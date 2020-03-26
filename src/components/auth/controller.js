@@ -60,3 +60,8 @@ export const login = async (req, res, next) => {
     return next(e);
   }
 };
+
+export const current = async (req, res) => {
+  const { user } = req;
+  return res.json(user);
+};
