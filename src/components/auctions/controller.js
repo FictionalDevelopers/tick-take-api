@@ -38,7 +38,7 @@ export const getAuction = async (req, res, next) => {
   const auctionId = req.params.auctionId;
 
   try {
-    const auction = await loadAuction(auctionId, 'lot');
+    const auction = await loadAuction(auctionId).populate('lot');
 
     return res.json(auction);
   } catch (e) {
@@ -61,9 +61,10 @@ export const getAuctions = async (req, res, next) => {
   }
 
   try {
-    const auctions = await loadAuctions(params, 'lot')
+    const auctions = await loadAuctions(params)
       .skip(limit * page - limit)
-      .limit(limit);
+      .limit(limit)
+      .populate('lot');
     const auctionsCount = await getAuctionsCount(params);
 
     const data = {
