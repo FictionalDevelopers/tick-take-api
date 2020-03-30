@@ -19,15 +19,15 @@ export const create = async (req, res, next) => {
 export const getLots = async (req, res, next) => {
   const params = {};
   const {
-    query: { page, limit },
+    query: { page, limit, user = null, status = null },
   } = req;
 
-  if (req.query.user) {
-    params.creator = req.query.user;
+  if (user) {
+    params.creator = user;
   }
 
-  if (req.query.status) {
-    params.status = req.query.status;
+  if (status) {
+    params.status = status;
   }
 
   try {

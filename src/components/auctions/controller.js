@@ -49,15 +49,15 @@ export const getAuction = async (req, res, next) => {
 export const getAuctions = async (req, res, next) => {
   const params = {};
   const {
-    query: { page, limit },
+    query: { page, limit, status = null, user = null },
   } = req;
 
-  if (req.query.user) {
-    params._id = req.query.user;
+  if (user) {
+    params._id = user;
   }
 
-  if (req.query.status) {
-    params.status = req.query.status;
+  if (status) {
+    params.status = status;
   }
 
   try {

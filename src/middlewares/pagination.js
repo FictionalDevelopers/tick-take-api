@@ -1,15 +1,9 @@
 import { query } from 'express-validator';
-import respondOnValidationError from './respondOnValidationError';
 import PAGINATION from '../constants/pagination';
 
-const validatePage = () =>
-  query('page').customSanitizer(v => +v || PAGINATION.PAGE);
+const getPage = () => query('page').customSanitizer(v => +v || PAGINATION.PAGE);
 
-const validateLimit = () =>
+const getLimit = () =>
   query('limit').customSanitizer(v => +v || PAGINATION.LIMIT);
 
-export default () => [
-  validatePage(),
-  validateLimit(),
-  respondOnValidationError,
-];
+export default () => [getPage(), getLimit()];
